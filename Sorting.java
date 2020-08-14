@@ -91,7 +91,7 @@ class Sorting
         {
            previous_index = i-1;
            value = array[i];
-           while((previous_index>0) && (value < array[previous_index]))
+           while((previous_index>-1) && (value < array[previous_index]))
            {
                array[previous_index+1] = array[previous_index];
                previous_index--; 
