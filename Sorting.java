@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.*;
+import java.util.*;
 
 class Sorting
 {
@@ -20,7 +21,7 @@ class Sorting
         }
 
 
-        array = BubbleSort(size, array);
+        //array = BubbleSort(size, array);
         System.out.println("Bubble Sort Output ");
         for(int i=0; i<size; i++)
         {
@@ -28,7 +29,7 @@ class Sorting
         }
         System.out.println("\n");
 
-        array = SelectionSort(size, array);
+        //array = SelectionSort(size, array);
         System.out.println("Selection Sort Output ");
         for(int i=0; i<size; i++)
         {
@@ -36,8 +37,16 @@ class Sorting
         }
         System.out.println("\n");
 
-        array = InsertionSort(size, array);
+        //array = InsertionSort(size, array);
         System.out.println("Insertion Sort Output ");
+        for(int i=0; i<size; i++)
+        {
+            System.out.print(array[i] + " ");
+        }
+        System.out.println("\n");
+
+        array = MergeSort(0, size-1, array);
+        System.out.println("Merge Sort Output ");
         for(int i=0; i<size; i++)
         {
             System.out.print(array[i] + " ");
@@ -99,6 +108,61 @@ class Sorting
            array[previous_index+1] = value;
         }   
         return array;
+    }
+
+    public static int[] MergeSort(int left, int right, int[] array)
+    {   
+        int mid = left + (right-left)/2;
+        if(left<right)
+        {
+            array = MergeSort(left,mid,array);
+            array = MergeSort(mid+1,right,array);
+            //merge array[left....mid], array[mid+1...right]
+            array = Merge(left,mid,right,array);
+        }
+        return array;
+    }
+
+    public static int[] Merge(int left, int mid, int right, int[] array) 
+    {
+        //merge array[left....mid], array[mid+1...right] to a single Array temp_arr[left.right]
+        int[] temp_arr = array;
+        int[] left_array = Arrays.copyOfRange(array,left,mid+1);
+        int[] right_array = Arrays.copyOfRange(array,mid+1,right+1);
+        int i=0,j=0,k=left;
+        int size_left = mid-left+1; //size of left array
+        int size_right = right-mid; //size of right aaray
+        while(i<size_left && j<size_right)
+        {
+            if(left_array[i]>right_array[j])
+            {	
+                temp_arr[k] = right_array[j];
+                j++;
+            }
+            else
+            {
+                temp_arr[k] = left_array[i];
+                i++;
+            }
+            k++;
+        }
+        if(i<size_left)
+        {
+            for(;i<size_left;i++)
+            {
+                temp_arr[k] = left_array[i];
+                k++;
+            }
+        }
+        else
+        {
+            for(;j<size_right;j++)
+            {
+                temp_arr[k] = right_array[j];
+                k++;
+            }
+        } 
+        return temp_arr; 
     }
 
 }
