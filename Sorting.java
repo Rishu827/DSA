@@ -26,13 +26,23 @@ class Sorting
         {
             System.out.print(array[i] + " ");
         }
+        System.out.println("\n");
 
-        array = BubbleSort(size, array);
+        array = SelectionSort(size, array);
         System.out.println("Selection Sort Output ");
         for(int i=0; i<size; i++)
         {
             System.out.print(array[i] + " ");
         }
+        System.out.println("\n");
+
+        array = InsertionSort(size, array);
+        System.out.println("Insertion Sort Output ");
+        for(int i=0; i<size; i++)
+        {
+            System.out.print(array[i] + " ");
+        }
+        System.out.println("\n");
 
     }
 
@@ -71,6 +81,23 @@ class Sorting
             array[min_index_element] = array[i];
             array[i] = temp;
         }
+        return array;
+    }
+
+    public static int[] InsertionSort(int size, int[] array) 
+    {
+        int previous_index, value;
+        for(int i=0; i<size; i++)
+        {
+           previous_index = i-1;
+           value = array[i];
+           while((previous_index>0) && (value < array[previous_index]))
+           {
+               array[previous_index+1] = array[previous_index];
+               previous_index--; 
+           } 
+           array[previous_index+1] = value;
+        }   
         return array;
     }
 
